@@ -1,35 +1,37 @@
 <%- include('header.html'); -%>
 <a-scene embedded arjs>
-  
-  
+
+
   <!-- <a-camera position="-0.7 2.7 0.5"></a-camera> -->
 
   <a-entity vimeo="id: 483770237" loop webkit-playsinline playsinline>
-    <a-plane color="#F00000" scale="3.2 1.8" position="0.0 3.4 -20.0" loop webkit-playsinline></a-plane>
+    <a-plane color="#0000FF" scale="3.2 1.8" position="0.0 3.4 -20.0" loop webkit-playsinline></a-plane>
   <!--  was position="0.0 3.4 -2.0"  -->
   </a-entity>
 
-<div id="playoverlay">
-      <button id="play-button">Play / Pause</button>
-    </div>
 
-    <script src="https://aframe.io/aframe/dist/aframe.js"></script>
-    <script src="../dist/iphone-inline-video.browser.js"></script>
-    <script>
-      (function() {
-        var video = document.querySelector('#video');
-        window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);
 
-        var playButton = document.querySelector('#play-button');
-        playButton.addEventListener('click', function(e) {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      })();
-    </script>
+  <script>
 
+  //Wait until the A-Scene component was loaded before doing anything
+  document.querySelector('#vimeo-player').addEventListener('loaded', function () {
+    var box = document.getElementById('box');
+    var vimeoPlayer = document.querySelector('#vimeo-player').components.vimeo;
+
+    //Register on box click event that triggers the player
+    box.addEventListener('click', function () {
+      if (vimeoPlayer.player.isPlaying()) {
+        vimeoPlayer.pause();
+      } else {
+        vimeoPlayer.play();
+      }
+    });
+  });
+
+
+</script>
+  
+  
+  
 </a-scene>
 <%- include('footer.html'); -%>
